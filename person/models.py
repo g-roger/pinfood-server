@@ -4,8 +4,8 @@ from django.db import models
 
 class Address(models.Model):
     name = models.CharField(max_length=120)
-    lat = models.DecimalField(decimal_places=4, max_digits=12)
-    lon = models.DecimalField(decimal_places=4, max_digits=13)
+    lat = models.DecimalField(decimal_places=4, max_digits=12, blank=True, null=True)
+    lon = models.DecimalField(decimal_places=4, max_digits=13, blank=True, null=True)
     zip_code = models.IntegerField()
     street = models.CharField(max_length=120)
     city = models.CharField(max_length=120)
@@ -25,12 +25,12 @@ class Address(models.Model):
 class Person(models.Model):
     first_name = models.CharField(max_length=120)
     last_name = models.CharField(max_length=120)
-    email = models.CharField(max_length=120)
+    email = models.EmailField(max_length=120)
     is_email_confirmed = models.BooleanField(default=False)
     url_photo = models.CharField(max_length=255)
     is_owner = models.BooleanField(default=False)
 
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

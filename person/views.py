@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-# Create your views here.
+from person.models import Person
+from person.serializers import PersonSerializer
+
+
+class PersonViewSet(APIView):
+    def post(self, request):
+        serializer = PersonSerializer(data=request.data)
+
+        if serializer.is_valid():
+            person_database = Person.objects.filter(email=request.data['email']).exists()
+
+            if person_database:
+                return Response({'message': 'Email already registered'}, status=status.HTTP_400_BAD_REQUEST)
+
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
