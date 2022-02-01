@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from person.views import PersonViewSet
+from person.views import PersonViewSet, PersonDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('person', PersonViewSet.as_view())
+    path('person', PersonViewSet.as_view()),
+    path('person/<int:pk>/', PersonDetail.as_view())
 ]
