@@ -1,7 +1,7 @@
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,9 +12,6 @@ from person.serializers import PersonSerializer
 class PersonViewSet(APIView):
     def post(self, request):
         serializer = PersonSerializer(data=request.data)
-
-        # Remove password because just needs on json
-        password = request.data['password']
         request.data.pop('password')
 
         if serializer.is_valid():
@@ -26,11 +23,11 @@ class PersonViewSet(APIView):
             serializer.save()
 
             # Create User when generate person
-            User.objects.create(username=request.data['email'],
-                                email=request.data['email'],
-                                password=make_password(password),
-                                first_name=request.data['first_name'],
-                                last_name=request.data['last_name']).save()
+            User.objects.create_user(username=request.data['email'],
+                                     email=request.data['email'],
+                                     password=request.data['password'],
+                                     first_name=request.data['first_name'],
+                                     last_name=request.data['last_name'])
 
             return Response(data=serializer.data, status=status.HTTP_201_CREATED)
 
@@ -38,7 +35,13 @@ class PersonViewSet(APIView):
 
 
 class PersonDetail(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, pk):
+        if request.user.pk != pk:
+            return Response({'message': 'You cannot access an user different of yours'},
+                            status=status.HTTP_401_UNAUTHORIZED)
         try:
             person = Person.objects.get(pk=pk)
             serializer = PersonSerializer(person)

@@ -3,10 +3,12 @@ certifi==2021.10.8
 charset-normalizer==2.0.10
 Django==4.0.1
 djangorestframework==3.13.1
+djangorestframework-simplejwt==5.0.0
 idna==3.3
 mysql-connector-python==8.0.28
 mysqlclient==2.1.0
 protobuf==3.19.3
+PyJWT==2.3.0
 PyMySQL==1.0.2
 pytz==2021.3
 requests==2.27.1
