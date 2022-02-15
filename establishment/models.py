@@ -14,11 +14,15 @@ class Establishment(models.Model):
     phone_number = models.CharField(max_length=255, null=True)
     is_open = models.BooleanField(default=False)
 
-    address = models.OneToOneField(Address, on_delete=models.CASCADE, blank=True, null=True)
+    address = models.OneToOneField(Address, on_delete=models.CASCADE, blank=True, null=True,
+                                   related_name='establishment_address')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.registration_code
 
 
 class Owner(models.Model):
@@ -26,8 +30,11 @@ class Owner(models.Model):
     cod_avcb = models.CharField(max_length=255, null=True)
 
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name='owner')
-    establishment = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='establishment')
+    establishment = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='owner_establishment')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name + ' - ' + self.registration_code
