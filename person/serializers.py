@@ -6,7 +6,7 @@ from .models import Person, Address
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ('id', 'name', 'zip_code', 'street', 'city', 'state', 'country')
+        fields = ('id', 'name', 'zip_code', 'street', 'city', 'state', 'country', 'number')
         read_only_fields = ('created_at', 'is_active')
 
 
