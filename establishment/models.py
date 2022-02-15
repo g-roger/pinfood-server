@@ -37,4 +37,4 @@ class Owner(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name + ' - ' + self.registration_code
+        return self.cod_cmvs + ' - ' + str(self.person) + ' - ' + str(self.establishment)
