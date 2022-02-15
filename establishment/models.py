@@ -30,7 +30,7 @@ class Owner(models.Model):
     cod_avcb = models.CharField(max_length=255, null=True)
 
     person = models.OneToOneField(Person, on_delete=models.CASCADE, related_name='owner')
-    establishment = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='owner_establishment')
+    establishment = models.ForeignKey(Establishment, on_delete=models.CASCADE, related_name='owner_establishment')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

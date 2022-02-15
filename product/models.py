@@ -21,4 +21,4 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name + ' - ' + self.establishment
+        return self.name + ' - ' + str(self.establishment)
