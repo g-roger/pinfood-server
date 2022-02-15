@@ -21,11 +21,14 @@ from rest_framework_simplejwt.views import (
 )
 
 from person.views import PersonViewSet, PersonDetail
+from product.views import ProductDetail, ProductViewSet
 
 urlpatterns = [
     path('admin', admin.site.urls),
     path('person', PersonViewSet.as_view()),
     path('person/<int:pk>', PersonDetail.as_view()),
+    path('products', ProductViewSet.as_view()),
+    path('product/<int:pk>', ProductDetail.as_view()),
     path('login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 ]
