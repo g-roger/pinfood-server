@@ -7,7 +7,7 @@ API que fornece endpoints para os serviços da pinfood
 - Django version: 3.0.6
 - Django REST framework version: 3.11.0
 
-##Configurações Iniciais
+## Configurações Iniciais
 
 * Iniciar ambiente
 
@@ -30,7 +30,7 @@ $ python manage.py makemigrations
 ```
 
 ---
-##Banco De Dados: MYSQL
+## Banco De Dados: MYSQL
 
 Nós indicamos utilizar o docker nas configurações de banco de dados do projeto local.
 
